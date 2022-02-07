@@ -91,9 +91,6 @@ const SearchFilters = () => {
           Search Location
         </Button>
 
-        {/* spinner */}
-        {loading && <Spinner margin='auto' marginTop='3' />}
-
         {showLocations && (
           <Flex flexDir='column' pos='relative' paddingTop='2'>
             {/* input  */}
@@ -115,6 +112,9 @@ const SearchFilters = () => {
                 onClick={() => setSearchText('')}
               />
             )}
+
+            {/* spinner */}
+            {loading && <Spinner margin='auto' marginTop='3' />}
 
             {showLocations && (
               <Box height='300px' overflow='auto'>
