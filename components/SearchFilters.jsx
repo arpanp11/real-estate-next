@@ -25,6 +25,23 @@ const SearchFilters = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    if (searchText !== '') {
+      const fetchLocation = async () => {
+        setLoading(true);
+
+        const data = await fetchApi(
+          `${baseUrl}/auto-complete?query=${searchText}`
+        );
+        // console.log(data);
+        setLoading(false);
+        setLocation(data?.hits);
+      };
+
+      fetchLocation();
+    }
+  }, [searchText]);
+
   //   search property handler
   const searchProperties = (filterValues) => {
     const path = router.pathname;
@@ -42,22 +59,10 @@ const SearchFilters = () => {
     router.push({ pathname: path, query });
   };
 
-  useEffect(() => {
-    if (searchText !== '') {
-      const fetchLocation = async () => {
-        setLoading(true);
-
-        const data = await fetchApi(
-          `${baseUrl}/auto-complete?query=${searchText}`
-        );
-        // console.log(data);
-        setLoading(false);
-        setLocation(data?.hits);
-      };
-
-      fetchLocation();
-    }
-  }, [searchText]);
+  const changeHandler = (e) => {
+    console.log(e.target.value);
+    setSearchText(e.target.value);
+  };
 
   return (
     <Flex bg='gray.100' p='4' justifyContent='center' flexWrap='wrap'>
@@ -99,7 +104,7 @@ const SearchFilters = () => {
               value={searchText}
               w='300px'
               focusBorderColor='gray.300'
-              onChange={(e) => setSearchText(e.target.value)}
+              onChange={changeHandler}
             />
             {searchText !== '' && (
               <Icon
