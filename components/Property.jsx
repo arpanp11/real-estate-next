@@ -74,7 +74,7 @@ const Property = ({
             <BsGridFill />
           </Flex>
           <Text fontSize='lg'>
-            {title.length > 30 ? `${title.substring(0, 30)}...` : title}
+            {title.length > 29 ? `${title.substring(0, 29)}...` : title}
           </Text>
         </Box>
       </Flex>
